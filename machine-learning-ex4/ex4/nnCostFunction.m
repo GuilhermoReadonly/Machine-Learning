@@ -40,7 +40,7 @@ Theta2_grad = zeros(size(Theta2));
 %         computed in ex4.m
 %
 
-%thise block transform vector y into a k outputs vector
+%this block transforms vector y into a k outputs Y vector
 tenth = [1:num_labels];
 Y = tenth == y(1,:);
 for i = 2 : m
@@ -48,12 +48,9 @@ for i = 2 : m
 end
 
 a1 = [ones(m, 1) X];
-
 a2 = sigmoid(a1 * Theta1');
 a2 = [ones(m, 1) a2];
-
 a3 = sigmoid(a2 * Theta2');
-
 
 J = 1/m * sum(sum( -Y.* log(a3) - (1 - Y) .* log(1 - a3),1) ,2);
 
