@@ -41,10 +41,11 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 %this block transforms vector y into a k outputs Y vector
-tenth = [1:num_labels];
-Y = tenth == y(1,:);
-for i = 2 : m
-  Y = [Y ; tenth == y(i,:)];  
+tenth = 1:num_labels;
+Y = zeros(m,num_labels);
+
+for i = 1 : m
+  Y(i,:) = tenth == y(i,:);  
 end
 
 a1 = [ones(m, 1) X];
@@ -52,7 +53,7 @@ a2 = sigmoid(a1 * Theta1');
 a2 = [ones(m, 1) a2];
 a3 = sigmoid(a2 * Theta2');
 
-J = 1/m * sum(sum( -Y.* log(a3) - (1 - Y) .* log(1 - a3),1) ,2);
+J = 1/m * sum(sum( -Y.* log(a3) - (1 - Y) .* log(1 - a3),1) ,2) + lambda/( 2 * m) * (sum(sum(Theta1(:,2:end).^2)) +  sum(sum(Theta2(:,2:end).^2)));
 
 
 % Part 2: Implement the backpropagation algorithm to compute the gradients
