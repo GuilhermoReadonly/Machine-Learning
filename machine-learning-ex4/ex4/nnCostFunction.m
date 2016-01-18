@@ -71,6 +71,35 @@ J = 1/m * sum(sum( -Y.* log(a3) - (1 - Y) .* log(1 - a3),1) ,2) + lambda/( 2 * m
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+
+Delta1 = zeros(size(Theta1));
+Delta2 = zeros(size(Theta2));
+
+for i = 1 : m
+    % feedforward run :
+    a1 = [1 X(i,:)];
+    z2 = a1 * Theta1';
+    a2 = [1 sigmoid(z2)];
+    z3 = a2 * Theta2';
+    a3 = sigmoid(z3);
+    
+    %backforward run :
+    d3 = a3 - Y(i,:);
+    d2 = (d3 * Theta2).* sigmoidGradient([1 z2]);
+    
+    Delta2 = Delta2 + d3' * a2;
+    Delta1 = Delta1 + d2(2:end)' * a1;
+    
+end
+
+Theta1_grad = Delta1 / m;
+Theta2_grad = Delta2 / m;
+
+
+
+
+
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
