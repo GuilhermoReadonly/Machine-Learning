@@ -92,8 +92,14 @@ for i = 1 : m
     
 end
 
-Theta1_grad = Delta1 / m;
-Theta2_grad = Delta2 / m;
+Theta1Temp = Theta1;
+Theta1Temp(:,1) = 0;
+Theta2Temp = Theta2;
+Theta2Temp(:,1) = 0;
+
+
+Theta1_grad = Delta1 / m + (lambda/m * Theta1Temp);
+Theta2_grad = Delta2 / m + (lambda/m * Theta2Temp);
 
 
 
