@@ -20,18 +20,20 @@ grad = zeros(size(theta));
 %
 
 
+J = 1/(2 * m) .* sum((X*theta-y).^2) + lambda/(2*m) * (theta'*theta - theta(1).^2);
 
-
-
-
-
-
-
-
+grad = 1/m * ( sigmoid(X * theta)-y )' * X + (lambda/m) * [0 ; theta(2:end)]';
 
 
 % =========================================================================
 
 grad = grad(:);
 
+end
+
+function g = sigmoid(z)
+%SIGMOID Compute sigmoid functoon
+%   J = SIGMOID(z) computes the sigmoid of z.
+
+g = 1.0 ./ (1.0 + exp(-z));
 end
